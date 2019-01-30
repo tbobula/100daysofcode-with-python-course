@@ -6,20 +6,30 @@ PYBITES_BORN = datetime(year=2016, month=12, day=19)
 
 def gen_special_pybites_dates():
     DELTA = timedelta(days=100)
-    STEP = timedelta(seconds=84600)
-    DATE = PYBITES_BORN
+    STEP = timedelta(seconds=86400)
+    PREVIOUSE_DATE = PYBITES_BORN
+    CURRENT_DATE = PYBITES_BORN
     while True:
-        if DATE - PYBITES_BORN == 365:
-            yield DATE
-        # DATE = PYBITES_BORN + STEP
-        #     yield datetime(year=DATE.year, month=PYBITES_BORN.month, day=PYBITES_BORN.day)
-        # yield DATE
-        DATE = DATE + STEP
+        if CURRENT_DATE - PREVIOUSE_DATE == DELTA:
+            PREVIOUSE_DATE = CURRENT_DATE
+            yield CURRENT_DATE
+        if CURRENT_DATE.year != PYBITES_BORN.year  and CURRENT_DATE.month == 12 and CURRENT_DATE.day == 19:
+            yield CURRENT_DATE
+        CURRENT_DATE = CURRENT_DATE +  STEP
 
-dates = []
+def gen_better_dates():
+    days = 0
+    while True:
+        days += 1
+        if days % 100 == 0 or days % 365 == 0:
+            yield PYBITES_BORN + timedelta(days=days)
+
+
 index = 0
-for dat in gen_special_pybites_dates():
-    print(dat)
+for d in gen_better_dates():
+    print(d)
+    index += 1
     if index == 10:
         break
-    index += 1
+
+
