@@ -1,4 +1,4 @@
-#!python3
+#!/usr/bin/env python3
 
 us_state_abbrev = {
     'Alabama': 'AL',
